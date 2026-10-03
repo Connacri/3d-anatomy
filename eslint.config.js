@@ -24,5 +24,20 @@ export default [
       'no-unused-vars': ['error', { args: 'none', varsIgnorePattern: '^_' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }]
     }
+  },
+  {
+    files: ['public/sw.js'],
+    languageOptions: {
+      ecmaVersion: 2023,
+      sourceType: 'script',
+      globals: {
+        ...globals.serviceworker
+      }
+    },
+    rules: {
+      'no-undef': 'error',
+      'no-unused-vars': ['error', { args: 'none', varsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }]
+    }
   }
 ];
