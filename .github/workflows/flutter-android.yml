@@ -27,7 +27,7 @@ jobs:
       - name: Generate Android project
         run: flutter create --platforms=android --org com.connacri .
 
-      - name: Allow network model loading
+      - name: Configure Android app label and internet
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -36,11 +36,16 @@ jobs:
           permission = '<uses-permission android:name="android.permission.INTERNET"/>'
           if permission not in s:
               s = s.replace('<manifest ', '<manifest ' + '\n    ' + permission + '\n')
+          s = s.replace('android:label="zenasni_kamel_professeur_anatomy"',
+                        'android:label="Zenasni Kamel Professeur Anatomy"')
           p.write_text(s)
           PY
 
       - name: Get packages
         run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
 
       - name: Build APK
         run: flutter build apk --release
@@ -48,5 +53,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: 3d-anatomy-flutter-android
+          name: zenasni-kamel-professeur-anatomy-android
           path: flutter_app/build/app/outputs/flutter-apk/app-release.apk
