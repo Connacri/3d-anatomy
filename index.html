@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Interactive 3D anatomy atlas built on Z-Anatomy">
+  <meta name="description" content="Interactive 3D anatomy atlas built on Z-Anatomy">\n  <meta name="theme-color" content="#0b0f14">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n  <link rel="manifest" href="./manifest.webmanifest">
   <title>Z-Anatomy - 3D Anatomy Atlas</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
@@ -158,5 +158,14 @@
   </div>
 
   <script type="module" src="/src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(error => {
+          console.warn('PWA service worker registration failed:', error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
