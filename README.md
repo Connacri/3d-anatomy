@@ -100,6 +100,20 @@ The site is served from a sub-path, so asset URLs are built from
 `vite.config.js` alone would not rewrite string literals passed to `fetch()` or
 to the loaders.
 
+## Zenasni Kamel Professeur Anatomy
+
+The native Flutter application is the main mobile product:
+
+- **Name:** Zenasni Kamel Professeur Anatomy
+- **Languages:** Français / English
+- **3D engine:** native Filament on Android and SceneKit on iOS through `interactive_3d`
+- **Catalog:** Anatria-3D + Human Reference Atlas metadata, with FMA, FIPAT and Uberon as terminology/ontology references
+- **Performance:** lazy catalog search and lazy system-level GLB loading
+- **Search:** English/scientific terms now, with a controlled French terminology layer designed for Wikidata/FMA mappings
+- **About:** includes project attribution and scientific data sources
+
+The catalog deliberately distinguishes **3D available** from **catalog only**. A scientific concept is never given invented geometry simply because an ontology contains it.
+
 ## App and website
 
 The project now has two complementary clients:
