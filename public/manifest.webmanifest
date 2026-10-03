@@ -1,0 +1,21 @@
+{
+  "name": "3D Anatomy Atlas",
+  "short_name": "3D Anatomy",
+  "description": "Interactive 3D atlas of human anatomy.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0f14",
+  "theme_color": "#0b0f14",
+  "lang": "en",
+  "categories": ["education", "medical"],
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
