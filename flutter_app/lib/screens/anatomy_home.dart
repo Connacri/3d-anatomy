@@ -53,7 +53,7 @@ class _AnatomyHomeState extends State<AnatomyHome> {
     try {
       final systems = await _repository.loadSystems();
       final definitions = await _repository.loadDefinitions();
-      unawaited(_catalog.loadCatalog());
+      // The large merged catalog is loaded lazily when Search is opened.
       if (!mounted) return;
       setState(() {
         _systemsData = systems;
