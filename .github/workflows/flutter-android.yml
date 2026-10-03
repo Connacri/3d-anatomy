@@ -1,13 +1,25 @@
-name: Build Flutter Android app
+name: Anatomy 3D Atlas CI/CD
 
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     tags:
       - 'flutter-v*'
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build:
+  android:
+    name: Android APK + AAB
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -31,15 +43,18 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
           p = Path("android/app/src/main/AndroidManifest.xml")
           s = p.read_text()
           permission = '<uses-permission android:name="android.permission.INTERNET"/>'
           if permission not in s:
-              s = s.replace('<manifest ', '<manifest ' + '\n    ' + permission + '\n')
-          import re
-          s = re.sub(r'android:label="[^"]+"',
-                     'android:label="Zenasni Kamel Professeur Anatomy"',
-                     s, count=1)
+              s = s.replace("<manifest ", "<manifest " + "\n    " + permission + "\n", 1)
+          s = re.sub(
+              r'android:label="[^"]+"',
+              'android:label="Anatomy 3D Atlas"',
+              s,
+              count=1,
+          )
           p.write_text(s)
           PY
 
@@ -49,11 +64,62 @@ jobs:
       - name: Analyze
         run: flutter analyze
 
+      - name: Test
+        run: flutter test
+
       - name: Build APK
         run: flutter build apk --release
+
+      - name: Build AAB
+        run: flutter build appbundle --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: zenasni-kamel-professeur-anatomy-android
+          name: anatomy-3d-atlas-apk
           path: flutter_app/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: anatomy-3d-atlas-aab
+          path: flutter_app/build/app/outputs/bundle/release/app-release.aab
+
+  web:
+    name: Flutter Web + GitHub Pages
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+
+      - name: Generate web project
+        run: flutter create --platforms=web .
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Build web
+        run: flutter build web --release --base-href "/3d-anatomy/"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: flutter_app/build/web
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
