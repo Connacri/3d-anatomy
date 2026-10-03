@@ -160,6 +160,16 @@ class AnatomyCatalogRepository {
       noteFr: 'Grande ontologie des concepts et relations anatomiques.',
     ),
     AnatomySourceInfo(
+      id: 'uberon',
+      titleEn: 'Uberon Anatomy Ontology',
+      titleFr: 'Uberon Anatomy Ontology',
+      url: 'https://uberon.github.io/',
+      license: 'CC BY 3.0',
+      structureCount: 26735,
+      noteEn: 'Cross-species anatomy ontology useful for concept mapping and relationships.',
+      noteFr: 'Ontologie anatomique multi-espèces utile pour le mapping et les relations.',
+    ),
+    AnatomySourceInfo(
       id: 'fipat',
       titleEn: 'FIPAT / Terminologia Anatomica',
       titleFr: 'FIPAT / Terminologia Anatomica',
