@@ -102,14 +102,15 @@ to the loaders.
 
 ## App and website
 
-The project is both a browser application and an installable Progressive Web App (PWA).
+The project now has two complementary clients:
 
-- **Website:** the existing Vite/Three.js atlas runs directly in the browser.
-- **Installable app:** the web app includes a Web App Manifest and service worker, so supported browsers can install it as a standalone application.
-- **Android:** Capacitor configuration is included in `capacitor.config.ts`. The `.github/workflows/android.yml` workflow builds a debug APK and publishes it as a GitHub Actions artifact.
-- **Shared engine:** the website and Android app use the same Three.js viewer and the same anatomical models/data; there is no duplicated anatomy engine.
+- **Website:** the existing Vite/Three.js atlas remains the full browser experience and is also installable as a PWA.
+- **Native mobile app:** `flutter_app/` is a real Flutter application using `interactive_3d`, with Google Filament on Android and SceneKit on iOS.
+- **Native 3D viewer:** GLB/GLTF rendering, rotate/pan/zoom, entity picking/selection, runtime PBR material overrides, visibility groups and camera zoom are handled by the native 3D renderer.
+- **Shared anatomy dataset:** the Flutter client consumes the same `public/models/*.glb` and `public/data/*.json` files instead of maintaining a second anatomy database.
+- **Android build:** `.github/workflows/flutter-android.yml` generates the Android platform project and produces a release APK as a GitHub Actions artifact.
 
-The Android build can be started from **GitHub → Actions → Build Android app → Run workflow**. It can also be triggered by pushing a version tag such as `v1.0.0`.
+The Flutter app is intentionally separated from the browser client so the web viewer can continue using its optimized Three.js/three-mesh-bvh pipeline while Android/iOS use native rendering.
 
 ## Licence
 
