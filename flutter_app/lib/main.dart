@@ -12,7 +12,7 @@ class AnatomyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zenasni Kamel Professeur Anatomy',
+      title: 'Anatomy 3D Atlas',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
