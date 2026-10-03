@@ -1,5 +1,5 @@
-name: zenasni_kamel_professeur_anatomy
-description: Zenasni Kamel Professeur Anatomy - bilingual native 3D human anatomy atlas.
+name: anatomy_3d_atlas
+description: Anatomy 3D Atlas - bilingual native 3D human anatomy atlas by Professeur Zenasni Kamel.
 publish_to: "none"
 version: 1.0.0+1
 
