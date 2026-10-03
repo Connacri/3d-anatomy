@@ -86,39 +86,35 @@ jobs:
           path: flutter_app/build/app/outputs/bundle/release/app-release.aab
 
   web:
-    name: Flutter Web + GitHub Pages
+    name: Web + GitHub Pages
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: flutter_app
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          flutter-version: '3.44.0'
-          channel: stable
-          cache: true
+          node-version: '22.12.0'
+          cache: npm
 
-      - name: Generate web project
-        run: flutter create --platforms=web .
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Get packages
-        run: flutter pub get
+      - name: Lint
+        run: npm run lint
 
-      - name: Analyze
-        run: flutter analyze
+      - name: Test
+        run: npm test
 
       - name: Build web
-        run: flutter build web --release --base-href "/3d-anatomy/"
+        run: npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: flutter_app/build/web
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
