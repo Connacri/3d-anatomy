@@ -100,6 +100,17 @@ The site is served from a sub-path, so asset URLs are built from
 `vite.config.js` alone would not rewrite string literals passed to `fetch()` or
 to the loaders.
 
+## App and website
+
+The project is both a browser application and an installable Progressive Web App (PWA).
+
+- **Website:** the existing Vite/Three.js atlas runs directly in the browser.
+- **Installable app:** the web app includes a Web App Manifest and service worker, so supported browsers can install it as a standalone application.
+- **Android:** Capacitor configuration is included in `capacitor.config.ts`. The `.github/workflows/android.yml` workflow builds a debug APK and publishes it as a GitHub Actions artifact.
+- **Shared engine:** the website and Android app use the same Three.js viewer and the same anatomical models/data; there is no duplicated anatomy engine.
+
+The Android build can be started from **GitHub → Actions → Build Android app → Run workflow**. It can also be triggered by pushing a version tag such as `v1.0.0`.
+
 ## Licence
 
 The anatomical models are derived from BodyParts3D (CC BY-SA 2.1 Japan) and
