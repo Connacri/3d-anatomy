@@ -36,8 +36,10 @@ jobs:
           permission = '<uses-permission android:name="android.permission.INTERNET"/>'
           if permission not in s:
               s = s.replace('<manifest ', '<manifest ' + '\n    ' + permission + '\n')
-          s = s.replace('android:label="zenasni_kamel_professeur_anatomy"',
-                        'android:label="Zenasni Kamel Professeur Anatomy"')
+          import re
+          s = re.sub(r'android:label="[^"]+"',
+                     'android:label="Zenasni Kamel Professeur Anatomy"',
+                     s, count=1)
           p.write_text(s)
           PY
 
